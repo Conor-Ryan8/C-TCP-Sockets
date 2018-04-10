@@ -18,7 +18,10 @@
 //Error function to display error messages
 void error (char *msg)
 {
+	//Prints the message passed to the function		
 	printf("%s",msg);
+
+	//Exits the program
 	exit(0);
 }
 //Main Function
@@ -46,10 +49,10 @@ int main (int argc, char *argv[])
 	//Converts arguement 2 from string to integer and stores as "port"
 	port = atoi(argv[2]);
 
-	//Takes arguement 1 and returns structure of type hostent
+	//Takes arguement 1 and returns structure of type hostent containing Server Address
 	serv = gethostbyname(argv[1]);
 
-	//Checks if serv structure is empty
+	//Checks the connection info was found and placed in "serv"
 	if (serv == NULL)
 
 		//Sends error message to error function
@@ -58,7 +61,7 @@ int main (int argc, char *argv[])
 	//Attempts to create socket and passes status value to "sock"
 	sock = socket(AF_INET, SOCK_STREAM, 0);
 
-	//Checks the status value in sock
+	//Checks if socket creation worked by reading the status value in "sock"
 	if (sock < 0)
 
 		//Sends error message to error function
@@ -67,7 +70,7 @@ int main (int argc, char *argv[])
 	//Zeroes server structure and slength integer
 	bzero((char *) &server, slength);
 
-	//Sets connection type as internet
+	//Sets connection type as internet in family field of the the server structure
 	server.sin_family = AF_INET;
 
 	//Copys server address from serv structure to server structure, along with server address length
@@ -76,7 +79,7 @@ int main (int argc, char *argv[])
 	//Takes value in "port", converts to network byte order and adds into port field of server structure
 	server.sin_port = htons(port);
 
-	//Attempts to connect the socket, passing status value to sock, then checks sock isnt empty
+	//Attempts to connect the socket, passing status value to "sock", then checks "sock" isnt empty
 	if (connect(sock,(struct sockaddr *)&server, slength) < 0)
 
 		//Sends error message to error function
@@ -84,7 +87,7 @@ int main (int argc, char *argv[])
 
 	//Asks user to input message to be sent
 	printf("\nPlease enter message: ");
-
+	
 	//Empties the buffer
 	bzero(buffer,256);
 
@@ -103,17 +106,18 @@ int main (int argc, char *argv[])
 	//Empties the buffer again
 	bzero(buffer,256);
 
-	//Attempts to read from the buffer and store recieved data in the buffer
+	//Attempts to read from the Socket, store in the buffer
 	status = read(sock,buffer,255);
 
-	//Checks the status value in "status"
+	//Checks if the socket read worked by reading the the status value passed to "status"
 	if (status < 0)
 
 		//Sends error message to error function
 		error("ERROR reading from socket!\n");
 
-	//Prints data recieved from server stored in the buffer
+	//Prints data recieved from server stored in the "buffer"
 	printf("%s\n",buffer);
 
-	//return 0 for lols
-	return 0;}
+	//Return 0 for the lols
+	return 0;
+}

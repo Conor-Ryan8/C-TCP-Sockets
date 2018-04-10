@@ -79,7 +79,7 @@ int main (int argc, char *argv[])
 	//Takes value in "port", converts to network byte order and adds into port field of server structure
 	server.sin_port = htons(port);
 
-	//Attempts to connect the socket, passing status value to "sock", then checks "sock" isnt empty
+	//Attempts to connect the socket, checking "connect" does not return a null value indicating failure
 	if (connect(sock,(struct sockaddr *)&server, slength) < 0)
 
 		//Sends error message to error function

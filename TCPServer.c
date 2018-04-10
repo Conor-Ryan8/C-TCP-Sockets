@@ -70,7 +70,7 @@ int main (int argc, char *argv[]){
 	//Sets incoming address in the server structure to any
 	server.sin_addr.s_addr = INADDR_ANY;
 
-	//Attempts to bind the socket, passing status value to "sock", then checks "sock" isnt empty
+	//Attempts to bind the socket, checking "bind" does not return a null value indicating failure
 	if (bind(sock, (struct sockaddr *) &server, slength) < 0)
 
 		//Sends error message to error function

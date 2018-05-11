@@ -1,6 +1,6 @@
 /*******************************************************************************
- * Conor Ryan - Socket Programming					       *
- * Basic TCP Client - C							       *
+ * Conor Ryan - Socket Programming - C					       *
+ * Basic TCP Client 							       *
  * March 2018			       				               *
  *******************************************************************************/
 
